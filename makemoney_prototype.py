@@ -54,4 +54,6 @@ def separate_coin_article (disclosure, coin_or_article):
         context = disclosure.text[idx+1:]
         return context
 
+#풀매수
+
 
