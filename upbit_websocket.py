@@ -10,7 +10,7 @@ async def upbit_ws_client():
             {"ticket":"test"},
             {
                 "type":"ticker",
-                "codes":["KRW-XRP"],
+                "codes":["KRW-XRP"], # 마켓 선택
                 "isOnlyRealtime":True
             },
             {"format":"SIMPLE"}
