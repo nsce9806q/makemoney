@@ -52,6 +52,6 @@ def separate_coin_article (disclosure, coin_or_article):
         return coin
     else:
         context = disclosure.text[idx+1:]
-        return 
+        return context
 
 
