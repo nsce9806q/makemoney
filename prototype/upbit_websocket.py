@@ -23,6 +23,7 @@ async def upbit_ws_client(coin):
         while True:
             data = await websocket.recv()
             data = json.loads(data)
+            print('{}원 시간:{}\n'.format(str(data.get('tp')),str(data.get('ttm'))))
 
 async def main(coin):
     await upbit_ws_client(coin)
