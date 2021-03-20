@@ -25,6 +25,7 @@ def get_new_disclosure():
         disclosure_new = driver.find_element_by_xpath('//*[@id="UpbitLayout"]/div[3]/div/section[2]/article/div/div[2]/table/tbody/tr[1]/td[1]/a')
         disclosure = disclosure_new.text
             
+        # 
         if (disclosure == d1):
             driver.refresh()
             sleep(10)
