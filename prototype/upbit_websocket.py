@@ -24,6 +24,7 @@ async def upbit_ws_client(coin):
             data = await websocket.recv()
             data = json.loads(data)
             print('{}원 시간:{}\n'.format(str(data.get('tp')),str(data.get('ttm'))))
+            # 손절 라인 가격이 되면 매도 
 
 async def main(coin):
     await upbit_ws_client(coin)

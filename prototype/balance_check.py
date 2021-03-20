@@ -6,8 +6,6 @@ from urllib.parse import urlencode
 
 import requests
 
-
-
 def get_balance(access_key, secret_key, coin):
     server_url = 'https://api.upbit.com'
 
@@ -30,7 +28,3 @@ def get_balance(access_key, secret_key, coin):
             avg = data[i]['avg_buy_price']
             balance_info = {'balance': balance, 'avg': avg}
             return balance_info
-             
-balance_info = get_balance(access_key, secret_key, 'DKA')
-
-
