@@ -24,7 +24,13 @@ columns = {
     '최저가2': [],
     '최고가2': [],
     'BTC 상승률1': [],
-    'BTC 상승률2': []
+    'BTC 상승률2': [],
+    '누적 거래량': [],
+    '누적 거래량1': [],
+    '누적 거래량2': [],
+    '누적 거래금': [],
+    '누적 거래금1': [],
+    '누적 거래금2': []
 }
 dataset = pd.DataFrame(columns)
 
@@ -59,21 +65,27 @@ for i in tqdm(range(0, 577)):
                 '전일 종가': response.json()[0]['prev_closing_price'],
                 '최저가': response.json()[0]['low_price'],
                 '최고가': response.json()[0]['high_price'],
-                'BTC 상승률': "{}%".format(round(BTC_change*100,2)),
-                '상승률': "{}%".format(round(((response.json()[0]['high_price']/response.json()[0]['prev_closing_price'])-1)*100,2)),
+                'BTC 상승률': round(BTC_change*100,2),
+                '상승률': round(((response.json()[0]['high_price']/response.json()[0]['prev_closing_price'])-1)*100,2),
                 '전일 종가1': response.json()[1]['prev_closing_price'], 
                 '최저가1': response.json()[1]['low_price'],
                 '최고가1': response.json()[1]['high_price'],
                 '전일 종가2': response.json()[2]['prev_closing_price'],
                 '최저가2': response.json()[2]['low_price'],
                 '최고가2': response.json()[2]['high_price'],
-                'BTC 상승률1': "{}%".format(round(BTC_change1*100,2)),
-                'BTC 상승률2': "{}%".format(round(BTC_change2*100,2))
+                'BTC 상승률1': round(BTC_change1*100,2),
+                'BTC 상승률2': round(BTC_change2*100,2),
+                '누적 거래량': response.json()[0]['candle_acc_trade_volume'],
+                '누적 거래금': response.json()[0]['candle_acc_trade_price'],
+                '누적 거래량1': response.json()[1]['candle_acc_trade_volume'],
+                '누적 거래금1': response.json()[1]['candle_acc_trade_price'],
+                '누적 거래량2': response.json()[2]['candle_acc_trade_volume'],
+                '누적 거래금2': response.json()[2]['candle_acc_trade_price']
             }
             dataset = dataset.append(new_data, ignore_index=True)
     except:
         print(original.iloc[i]['코인 명'])
 
-dataset.to_csv('disclosure_price_210320.csv',   encoding ="utf-8-sig")
+dataset.to_csv('disclosure_price_210321.csv',   encoding ="utf-8-sig")
 
 print("FINISH")
