@@ -30,7 +30,7 @@ while(1):
             upbit_buy(access_key, secret_key, coin, KRW_balance['balance'])
 
             # 매수한 코인 단가/수량 체크
-            coin_balance = get_balance(access_key, secret_key, 'coin')
+            coin_balance = get_balance(access_key, secret_key, coin)
             volume = coin_balance['balance'] #코인 수량
             price = coin_balance['avg'] #평균 단가
 
