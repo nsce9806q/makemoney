@@ -45,7 +45,7 @@ while(1):
             profit_sell = upbit_sell(access_key, secret_key, coin, expected_price, volume)
 
             # 매수한 코인 실시간 조회 + 손절 or 지정가 매도시 다시 루프
-            upbit_websocket.websocket_start(access_key, secret_key, coin, volume, price, expected_price, profit_sell.json()['uuid']) 
+            upbit_websocket.websocket_start(access_key, secret_key, coin, volume, price, expected_price, profit_sell['uuid']) 
 
 
 
