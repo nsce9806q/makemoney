@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options #열려 있는 크롬으로 제어
 from time import sleep #대기 함수
+from random import *
 
 # 새 기사
 def get_new_disclosure():
@@ -26,15 +27,15 @@ def get_new_disclosure():
         disclosure = disclosure_new.text
             
         if (disclosure == d1):
-            sleep(7)
+            sleep(randint(5,8))
             driver.refresh()
-            sleep(3)
+            sleep(2)
         else:
             if (disclosure != d2 and disclosure != d3):
                 break
             else:
                 sleep(7)
                 driver.refresh()
-                sleep(3)
+                sleep(2)
 
     return(disclosure)
