@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options #열려 있는 크롬으로 제어
 from time import sleep #대기 함수
 from random import *
+from open_upbit_again import open_again
 
 # 새 기사
 def get_new_disclosure():
@@ -23,19 +24,22 @@ def get_new_disclosure():
 		
     # 새공시 뜰때까지 10초마다 무한 새로고침
     while(1):
-        disclosure_new = driver.find_element_by_xpath('//*[@id="UpbitLayout"]/div[3]/div/section[2]/article/div/div[2]/table/tbody/tr[1]/td[1]/a')
-        disclosure = disclosure_new.text
+        try: 
+            disclosure_new = driver.find_element_by_xpath('//*[@id="UpbitLayout"]/div[3]/div/section[2]/article/div/div[2]/table/tbody/tr[1]/td[1]/a')
+            disclosure = disclosure_new.text
             
-        if (disclosure == d1):
-            sleep(randint(5,8))
-            driver.refresh()
-            sleep(2)
-        else:
-            if (disclosure != d2 and disclosure != d3):
-                break
-            else:
-                sleep(7)
+            if (disclosure == d1):
+                sleep(randint(5,8))
                 driver.refresh()
                 sleep(2)
-
+            else:
+                if (disclosure != d2 and disclosure != d3):
+                    break
+                else:
+                    sleep(7)
+                    driver.refresh()
+                    sleep(2)
+        except:
+            print("업비트 브라우저 재 로딩 필요")
+            open_again()
     return(disclosure)
