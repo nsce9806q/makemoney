@@ -37,6 +37,7 @@ def upbit_buy(access_key, secret_key, coin, balance):
 
     res = requests.post(server_url + "/v1/orders", params=query, headers=headers)
 
+    print(res.json())
     return res.json()
 
 # 지정가 매도
