@@ -1,5 +1,5 @@
 def model(coin, article):
-    return 0.3
+    return 25 #목표 이익률
 
 # 호재 판단 ML 모델 완성도 부족시 
 # 단계별 매도 주문으로 대체하고

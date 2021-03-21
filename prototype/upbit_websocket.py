@@ -8,7 +8,7 @@ from round_unit import round_price
 async def upbit_ws_client(access_key, secret_key, coin, volume, price, expected_price, uuid):
     uri = "wss://api.upbit.com/websocket/v1"
 
-    stoploss_percentage = 0.005 #손절 라인 설정
+    stoploss_percentage = 0.08 #손절 라인 설정
     stoploss_price = round_price((1-stoploss_percentage) * float(price))
 
     async with websockets.connect(uri) as websocket:
@@ -24,10 +24,11 @@ async def upbit_ws_client(access_key, secret_key, coin, volume, price, expected_
         subscribe_data = json.dumps(subscribe_fmt)
         await websocket.send(subscribe_data)
 
+        print("가격 조회중")
         while True:
             data = await websocket.recv()
             data = json.loads(data)
-            print('{}원 시간:{}\n'.format(str(data.get('tp')),str(data.get('ttm'))))
+            # print('{}원 시간:{}\n'.format(str(data.get('tp')),str(data.get('ttm'))))
             
             # 손절 라인 가격이 되면 지정가 매도 취소 후 시장가 매도하고 break
             if (stoploss_price == data.get('tp')):
@@ -37,7 +38,10 @@ async def upbit_ws_client(access_key, secret_key, coin, volume, price, expected_
                 break
             # 매도되면 break
             elif (data.get('tp') == expected_price):
-                if(get_balance(access_key, secret_key, coin)['balance'] == 0):
+                try:
+                    if(get_balance(access_key, secret_key, coin)['balance'] == 0):
+                        continue
+                except:
                     print('profit!')
                     break
             

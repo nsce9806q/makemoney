@@ -103,9 +103,9 @@ def stoploss(access_key, secret_key, coin, volume):
     return res.json()
 
 # 매도 취소
-def sell_cancel(access_key, secret_key, uuid):
+def sell_cancel(access_key, secret_key, uuid_code):
     query = {
-        'uuid': uuid,
+        'uuid': uuid_code,
     }
     query_string = urlencode(query).encode()
 
