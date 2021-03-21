@@ -21,7 +21,7 @@ def get_new_disclosure():
     d1 = disclosure_1.text
     d2 = disclosure_2.text
     d3 = disclosure_3.text
-		
+
     # 새공시 뜰때까지 10초마다 무한 새로고침
     while(1):
         try: 
@@ -42,4 +42,6 @@ def get_new_disclosure():
         except:
             print("업비트 브라우저 재 로딩 필요")
             open_again()
+            driver = webdriver.Chrome(chrome_driver, options=chrome_options)
+            driver.get("https://upbit.com/service_center/disclosure")
     return(disclosure)
