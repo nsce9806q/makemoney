@@ -26,13 +26,15 @@ def get_new_disclosure():
         disclosure = disclosure_new.text
             
         if (disclosure == d1):
+            sleep(7)
             driver.refresh()
-            sleep(10)
+            sleep(3)
         else:
             if (disclosure != d2 and disclosure != d3):
                 break
             else:
-                sleep(10)
+                sleep(7)
                 driver.refresh()
+                sleep(3)
 
     return(disclosure)
