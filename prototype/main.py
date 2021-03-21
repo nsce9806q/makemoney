@@ -4,6 +4,7 @@ import upbit_websocket
 from ML_disclosure import model
 from buy_and_sell import upbit_buy, upbit_sell
 from KRWtickers import check_KRWtickers
+from round_unit import round_price
 
 access_key = 'mvkTaYkcAmtvhU0KUq8ZaFEoDEoxyxl2zL3Y4q2I'
 secret_key = 'dLxGxfLbZcrtRLMKXPssbqrVIQbUyoFYMEHwBGdv'
@@ -35,8 +36,7 @@ while(1):
             price = coin_balance['avg'] #평균 단가
 
             # 지정가 매도 기대 단가 설정 
-            expected_price = ((1+(expected_profit/100)) * price)
-            # 원화 마켓 주문 가격 단위 반올림 함수 필요
+            expected_price = round_price(((1+(expected_profit/100)) * price))
 
             # 지정가 매도 주문
             profit_sell = upbit_sell(access_key, secret_key, coin, expected_price, volume)

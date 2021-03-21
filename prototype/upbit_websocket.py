@@ -3,14 +3,13 @@ import asyncio
 import json
 from buy_and_sell import sell_cancel, stoploss
 from balance_check import get_balance
-
+from round_unit import round_price
 
 async def upbit_ws_client(access_key, secret_key, coin, volume, price, expected_price, uuid):
     uri = "wss://api.upbit.com/websocket/v1"
 
-    stoploss_percentage = 0.1 #손절 라인 설정
-    stoploss_price = (1-stoploss_percentage) * price
-    # 원화 마켓 주문 가격 단위 반올림 함수 필요
+    stoploss_percentage = 0.002 #손절 라인 설정
+    stoploss_price = rounded_price((1-stoploss_percentage) * price)
 
     async with websockets.connect(uri) as websocket:
         subscribe_fmt = [
