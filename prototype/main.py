@@ -5,7 +5,7 @@ from ML_disclosure import model
 from buy_and_sell import upbit_buy, upbit_sell
 from KRWtickers import check_KRWtickers
 from round_unit import round_price
-from time import sleep
+from time import sleep, strftime, localtime, time
 
 access_key = 'mvkTaYkcAmtvhU0KUq8ZaFEoDEoxyxl2zL3Y4q2I'
 secret_key = 'dLxGxfLbZcrtRLMKXPssbqrVIQbUyoFYMEHwBGdv'
@@ -13,6 +13,8 @@ secret_key = 'dLxGxfLbZcrtRLMKXPssbqrVIQbUyoFYMEHwBGdv'
 while (True):
     # 새공시 가져오기
     disclosure = get_new_disclosure()
+    print(disclosure)
+    print(strftime('%y-%m-%d %H:%M:%S', localtime(time())))
 
     # 공시 문자열 나누기
     idx = disclosure.find(']')
@@ -43,6 +45,7 @@ while (True):
 
             # 지정가 매도 주문
             profit_sell = upbit_sell(access_key, secret_key, coin, expected_price, volume)
+            print(strftime('%y-%m-%d %H:%M:%S', localtime(time())))
 
             # 매수한 코인 실시간 조회 + 손절 or 지정가 매도시 다시 루프
             upbit_websocket.websocket_start(access_key, secret_key, coin, volume, price, expected_price, profit_sell['uuid']) 

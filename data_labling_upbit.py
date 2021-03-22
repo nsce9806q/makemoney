@@ -32,10 +32,10 @@ for i in tqdm(range(0, 577)):
     # KRW 비상장 코인일 경우 BTC 마켓으로 재조회
     if (response.status_code != 200 or response.text == '[]'):
         coin_BTC = "BTC-{}".format(coin)
-        querystring = {"market":coin_BTC,"to":date,"count":"1","convertingPriceUnit":"KRW"}
+        querystring = {"market":coin_BTC,"to":date,"count":"3","convertingPriceUnit":"KRW"}
         response = requests.request("GET", url, params=querystring)
     
-    BTCstring = {"market":'KRW-BTC',"to":date,"count":"1"}
+    BTCstring = {"market":'KRW-BTC',"to":date,"count":"3"}
     BTC_response = requests.request("GET", url, params=BTCstring)
     BTC_change = BTC_response.json()[0]['change_rate']
 

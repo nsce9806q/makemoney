@@ -70,6 +70,7 @@ def upbit_sell(access_key, secret_key, coin, price, volume):
 
     res = requests.post(server_url + "/v1/orders", params=query, headers=headers)
 
+    print(res.json())
     return res.json()
 
 # 손절 ㅠㅠ
@@ -100,6 +101,7 @@ def stoploss(access_key, secret_key, coin, volume):
 
     res = requests.post(server_url + "/v1/orders", params=query, headers=headers)
 
+    print(res.json())
     return res.json()
 
 # 매도 취소
@@ -126,4 +128,5 @@ def sell_cancel(access_key, secret_key, uuid_code):
 
     res = requests.delete(server_url + "/v1/order", params=query, headers=headers)
 
+    print(res.json())
     return(res.json())

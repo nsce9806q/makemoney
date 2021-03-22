@@ -20,6 +20,7 @@ def get_balance(access_key, secret_key, coin):
 
     res = requests.get(server_url + "/v1/accounts", headers=headers)
 
+    print(res.json())
     data = res.json()
 
     for i in range(len(data)):
