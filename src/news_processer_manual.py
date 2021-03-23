@@ -3,12 +3,18 @@ import logger
 def model(coin, article):
     logger.write_system_log("Enter NPM - Manual")
 
-    if('기공개' in article) :
+    if ('기공개' in article) :
         return 10
-    elif('소각' in article) :
+
+    elif ('소각' in article) :
         return 0
+
+    elif ('BUYING_TEST' in article) :
+        logger.write_system_log("TEST PROFIT APPLIED")
+        return 1
+
     else :
-        return 25
+        return 24
 
 # 호재 판단 ML 모델 완성도 부족시 
 # 단계별 매도 주문으로 대체하고

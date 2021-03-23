@@ -11,8 +11,8 @@ server_url = 'https://api.upbit.com'
 # 시장가 매수
 def buy_market_price(access_key, secret_key, coin, balance):
     logger.write_trade_log("TRADE : Buy Market Price Func")
-    logger.write_trade_log(f"\tCOIN\t\t: {coin}")
-    logger.write_trade_log(f"\tBALANCE\t: {balance}")
+    logger.write_trade_log(f"\tCOIN\t: {coin}")
+    logger.write_trade_log(f"\tBALANCE\t: {balance}KRW")
 
     query = {
         'market': 'KRW-{}'.format(coin),
@@ -41,16 +41,16 @@ def buy_market_price(access_key, secret_key, coin, balance):
 
     res = requests.post(server_url + "/v1/orders", params=query, headers=headers)
 
-    logger.write_trade_log(f"RES\t\t: {res}")
+    logger.write_trade_log(f"\tRES\t: {res}")
     return res.json()
 
 
 # 지정가 매도
 def sell_specified_price(access_key, secret_key, coin, price, volume):
     logger.write_trade_log("TRADE : Sell Specified Price")
-    logger.write_trade_log(f"\tCOIN\t\t: {coin}")
-    logger.write_trade_log(f"\tPRICE\t: {price}")
-    logger.write_trade_log(f"\tBALANCE\t: {volume}")
+    logger.write_trade_log(f"\tCOIN\t: {coin}")
+    logger.write_trade_log(f"\tPRICE\t: {price}KRW")
+    logger.write_trade_log(f"\tBALANCE\t: {volume}{coin}")
     
     query = {
         'market': 'KRW-{}'.format(coin),
@@ -79,7 +79,7 @@ def sell_specified_price(access_key, secret_key, coin, price, volume):
 
     res = requests.post(server_url + "/v1/orders", params=query, headers=headers)
 
-    logger.write_trade_log(f"RES\t\t: {res}")
+    logger.write_trade_log(f"\tRES\t: {res}")
     return res.json()
 
 
@@ -109,14 +109,13 @@ def sell_cancel(access_key, secret_key, uuid_code):
 
     res = requests.delete(server_url + "/v1/order", params=query, headers=headers)
 
-    logger.write_trade_log(f"RES\t\t: {res}")
+    logger.write_trade_log(f"\tRES\t: {res}")
     return(res.json())
 
 
 # 손절 ㅠㅠ
 def stoploss(access_key, secret_key, coin, volume):
     logger.write_trade_log("TRADE : Stop loss")
-    logger.write_trade_log(T)
 
     query = {
         'market': 'KRW-{}'.format(coin),
@@ -143,6 +142,7 @@ def stoploss(access_key, secret_key, coin, volume):
     headers = {"Authorization": authorize_token}
 
     res = requests.post(server_url + "/v1/orders", params=query, headers=headers)
+    logger.write_trade_log(f"\tRES\t: {res}")
 
     return res.json()
 

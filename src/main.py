@@ -23,19 +23,19 @@ secret_key = ''
 # Write Initial Log
 logger.write_system_log("#### START SYSTEM ####")
 logger.write_system_log(f"ML_MODEL_ENABLE\t: {ML_MODEL_ENABLE}")
-logger.write_system_log(f"KRW_BALANCE\t\t: {checker_balance.get_balance(access_key, secret_key, 'KRW')}")
+logger.write_system_log(f"KRW_BALANCE\t: {checker_balance.get_balance(access_key, secret_key, 'KRW')}")
 
 # Start Main While Loop
 while (True) :
     # Log
     logger.write_system_log("main.py\tMain While Loop - Start")
-    time.sleep(20)
+    time.sleep(10)
 
     # Check New Disclosure
     disclosure = checker_disclosure.get_newDisclosure()
 
     # Print Log - new Disclosure
-    logger.write_system_log(f"New Disclosure! :\t{disclosure}")
+    logger.write_system_log(f"New Disclosure!\t: {disclosure}")
 
     # Split Disclosure String
     idx = disclosure.find(']')

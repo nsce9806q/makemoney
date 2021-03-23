@@ -13,7 +13,7 @@ def write_system_log(log_message) :
 
 # Trade Logger
 def write_trade_log(log_message) :
-    stream_trade_log = open("log/trade_log", 'a')
+    stream_trade_log = open("log/trade_log.txt", 'a')
 
     log_refined = f"{datetime.datetime.now()}\t{log_message}\n"
     stream_trade_log.write(log_refined)
