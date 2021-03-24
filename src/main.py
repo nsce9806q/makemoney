@@ -59,7 +59,7 @@ while (True) :
             logger.write_trade_log(f"MY_KRW_BALANCE\t: {my_krw_balance}")
 
             # 시장가 풀매수
-            upbit_trade.buy_market_price(access_key, secret_key, coin, str(float(my_krw_balance['balance'])-300))
+            upbit_trade.buy_market_price(access_key, secret_key, coin, str(float(my_krw_balance['balance'])-2000))
             time.sleep(1)
 
             # 매수한 코인 단가/수량 체크
