@@ -186,11 +186,14 @@ class Upbit_API:
         res = requests.get(self.server_url + "/v1/accounts", headers=headers)
 
         data = res.json()
-        print('KRW 조회')s
+
+        self.KRW_balance = data[0]['balance']
+
+        print('KRW 조회')
         print(strftime('%y-%m-%d %H:%M:%S', localtime(time())))
         print(res.json())    
 
-        self.KRW_balance = data[0]['balance']
+       
 
        
 
