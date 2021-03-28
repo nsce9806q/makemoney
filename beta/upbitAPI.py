@@ -193,10 +193,6 @@ class Upbit_API:
         print(strftime('%y-%m-%d %H:%M:%S', localtime(time())))
         print(res.json())    
 
-       
-
-       
-
         # res.json() 예시
         # [{'currency': 'KRW', 'balance': '726418.14648042', 'locked': '0.0', 'avg_buy_price': '0', 'avg_buy_price_modified': True, 'uni': '0', 'avg_buy_price_modified': True, 'unit_currency': 'KRW'}]
 
@@ -220,6 +216,10 @@ class Upbit_API:
             if (data[i]['currency'] == self.coin):
                 self.volume = data[i]['balance']
                 self.avg_price = data[i]['avg_buy_price']
+
+        print('{} 조회'.format(self.coin))
+        print(strftime('%y-%m-%d %H:%M:%S', localtime(time())))
+        print(res.json())    
 
     async def upbit_ws_client(self):
         uri = "wss://api.upbit.com/websocket/v1"
