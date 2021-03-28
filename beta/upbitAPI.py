@@ -13,14 +13,14 @@ from time import sleep, strftime, localtime, time
 
 class Upbit_API:
     server_url = 'https://api.upbit.com'
-    KRW_balance = '0'
-    balance = '0'
-    volume = '0'
-    avg_price = '0'
-    coin = '\0'
-    order_uuid = '\0'
-    profit_price = '0'
-    loss_price = '0'
+    KRW_balance = '0' # KRW 잔액
+    volume = '0' # 코인 수량
+    avg_price = '0' # 평균 단가
+    coin = '\0' # 코인
+    order_uuid = '\0' # 주문 번호
+    profit_price = '0' # 기대 이익 단가
+    loss_price = '0' # 손절 단가
+    order_state = '\0' # 주문 상태 wait: 체결 대기 / watch: 예약주문 대기 / done: 체결 완료 / cancel: 주문 취소
 
     # 생성자
     def __init__(self, access_key, secret_key):
@@ -28,6 +28,8 @@ class Upbit_API:
         self.secret_key = secret_key
 
     # 소멸자
+    def __del__(self):
+        print('소멸')
 
     # 코인 설정
     def select_market(self, value):
@@ -171,6 +173,38 @@ class Upbit_API:
         print(strftime('%y-%m-%d %H:%M:%S', localtime(time())))
         print(res.json())
 
+    # 주문 조회
+    def order_inquiry(self):
+        query = {
+            'uuid': self.order_uuid,
+        }
+        
+        query_string = urlencode(query).encode()
+
+        m = hashlib.sha512()
+        m.update(query_string)
+        query_hash = m.hexdigest()
+
+        payload = {
+            'access_key': self.access_key,
+            'nonce': str(uuid.uuid4()),
+            'query_hash': query_hash,
+            'query_hash_alg': 'SHA512',
+            }
+
+        jwt_token = jwt.encode(payload, self.secret_key)
+        authorize_token = 'Bearer {}'.format(jwt_token)
+        headers = {"Authorization": authorize_token}
+
+        res = requests.get(self.server_url + "/v1/order", params=query, headers=headers)
+
+        data = res.json()
+        self.order_state = data['state']
+
+        print('주문 조회')
+        print(strftime('%y-%m-%d %H:%M:%S', localtime(time())))
+        print(res.json())
+
     # KRW 잔액 조회
     def check_KRW(self):
 
@@ -241,26 +275,22 @@ class Upbit_API:
             while True:
                 data = await websocket.recv()
                 data = json.loads(data)
-                # print('{}원 시간:{}\n'.format(str(data.get('tp')),str(data.get('ttm'))))
             
                 # 손절 라인 가격이 되면 지정가 매도 취소 후 시장가 매도하고 break
                 if (float(self.loss_price) <= data.get('tp')):
-                    # 주문 취소
-                    # 시장가 매도 주문
-                    print('loss!')
+                    self.order_cancel()
+                    self.sell_market()
+                    print('손절')
+                    print(strftime('%y-%m-%d %H:%M:%S', localtime(time())))
                     break
-                # 매도되면 break
-                '''
+                # 이익 기댓값 이상일 경우 주문 상태 확인 후 break
                 elif (self.profit_price >= data.get('tp')):
-                    try:
-                        # 조회가 안되서 오류가 나면 break 수정 필요
-                        # if(get_balance(access_key, secret_key, coin)['balance'] == 0):
-                            # continue
-                    except:
-                        print('profit!')
+                    self.order_inquiry()
+                    if(self.order_state == 'done'):
+                        print('GAY득')
+                        print(strftime('%y-%m-%d %H:%M:%S', localtime(time())))
                         break
-                '''
-            
+                    
     async def main(self):
         await self.upbit_ws_client()
 
