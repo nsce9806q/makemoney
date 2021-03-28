@@ -11,6 +11,9 @@ access_key = 'mvkTaYkcAmtvhU0KUq8ZaFEoDEoxyxl2zL3Y4q2I'
 secret_key = 'dLxGxfLbZcrtRLMKXPssbqrVIQbUyoFYMEHwBGdv'
 
 while (True):
+     # KRW 잔액 체크
+    KRW_balance = get_balance(access_key, secret_key, 'KRW')
+
     # 새공시 가져오기
     disclosure = get_new_disclosure()
     print(disclosure)
@@ -27,15 +30,15 @@ while (True):
     # KRW마켓에 있는 코인인지 확인하는 로직
     if (check_KRWtickers(coin)):
         if (expected_profit > 0):
-            # KRW 잔액 체크
-            KRW_balance = get_balance(access_key, secret_key, 'KRW')
-
+           
             # 시장가 풀매수
-            upbit_buy(access_key, secret_key, coin, str(float(KRW_balance['balance'])-300))
+            print(strftime('%y-%m-%d %H:%M:%S', localtime(time())))
+            upbit_buy(access_key, secret_key, coin, str(float(KRW_balance['balance'])-2000))
 
-            sleep(1)
+            sleep(15)
 
             # 매수한 코인 단가/수량 체크
+            print(strftime('%y-%m-%d %H:%M:%S', localtime(time())))
             coin_balance = get_balance(access_key, secret_key, coin)
             volume = coin_balance['balance'] #코인 수량
             price = coin_balance['avg'] #평균 단가
@@ -44,10 +47,12 @@ while (True):
             expected_price = round_price(((1+(expected_profit/100)) * float(price)))
 
             # 지정가 매도 주문
-            profit_sell = upbit_sell(access_key, secret_key, coin, expected_price, volume)
             print(strftime('%y-%m-%d %H:%M:%S', localtime(time())))
+            profit_sell = upbit_sell(access_key, secret_key, coin, expected_price, volume)
+            
 
             # 매수한 코인 실시간 조회 + 손절 or 지정가 매도시 다시 루프
+            print(strftime('%y-%m-%d %H:%M:%S', localtime(time())))
             upbit_websocket.websocket_start(access_key, secret_key, coin, volume, price, expected_price, profit_sell['uuid']) 
 
     t = 0
