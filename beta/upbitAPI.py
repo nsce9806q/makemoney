@@ -48,8 +48,7 @@ class Upbit_API:
         query = {
             'market': 'KRW-{}'.format(self.coin),
             'side': 'bid',
-            # 수수료 계산 필요
-            'price': self.KRW_balance, 
+            'price': str(float(self.KRW_balance)-2000), 
             'ord_type': 'price'
         }
 
@@ -231,7 +230,7 @@ class Upbit_API:
         # [{'currency': 'KRW', 'balance': '726418.14648042', 'locked': '0.0', 'avg_buy_price': '0', 'avg_buy_price_modified': True, 'uni': '0', 'avg_buy_price_modified': True, 'unit_currency': 'KRW'}]
 
     # 코인 잔액 조회
-    def get_KRW(self):
+    def check_coin(self):
 
         payload = {
             'access_key': self.access_key,
