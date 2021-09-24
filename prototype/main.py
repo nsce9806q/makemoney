@@ -7,8 +7,8 @@ from KRWtickers import check_KRWtickers
 from round_unit import round_price
 from time import sleep, strftime, localtime, time
 
-access_key = 'mvkTaYkcAmtvhU0KUq8ZaFEoDEoxyxl2zL3Y4q2I'
-secret_key = 'dLxGxfLbZcrtRLMKXPssbqrVIQbUyoFYMEHwBGdv'
+access_key = os.environ['UPBIT_OPEN_API_ACCESS_KEY']
+secret_key = os.environ['UPBIT_OPEN_API_SECRET_KEY']
 
 while (True):
      # KRW 잔액 체크
