@@ -11,4 +11,5 @@ selenium으로 upbit 홈페이지 신규 공시 조회 -> <a href="https://colab
   <image src=profit(MVL_210324).png></image>
 매수: 724,419원 -> 매도: 771,995원 (6.5%)
 
-<h2>업비트 기존 공시 일시 중단 및 제도 개편으로 인해 사용 </h2>
+## 업비트 기존 공시 일시 중단으로 인한 사용 불가
+https://upbit.com/service_center/notice?id=1874
