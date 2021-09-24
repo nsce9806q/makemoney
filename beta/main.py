@@ -1,7 +1,7 @@
 from upbitAPI import Upbit_API 
 
-access_key = 'mvkTaYkcAmtvhU0KUq8ZaFEoDEoxyxl2zL3Y4q2I'
-secret_key = 'dLxGxfLbZcrtRLMKXPssbqrVIQbUyoFYMEHwBGdv'
+access_key = os.environ['UPBIT_OPEN_API_ACCESS_KEY']
+secret_key = os.environ['UPBIT_OPEN_API_SECRET_KEY']
 
 while (True):
     a = Upbit_API(access_key, secret_key)
